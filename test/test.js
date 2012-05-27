@@ -5,15 +5,15 @@ var mst = require('../lib/mst.js'),
 	fs = require('fs');
 
 var tests = {
-	where: false,
-	select: false,
-	makeArray: false,
-	singleton: false,
-	ix: false,
-	colon: false,
-	split: false,
-	histo: false,
-	equal: false,
+	where: true,
+	select: true,
+	makeArray: true,
+	singleton: true,
+	ix: true,
+	colon: true,
+	split: true,
+	histo: true,
+	equal: true,
 	stats: true
 };
 
@@ -154,5 +154,10 @@ function foo() { }
 foo.prototype.class = "foo";
 var f = new foo();
 console.log(f.class);
+
+console.log(mst.parseString("as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd"));
+console.log(mst.parseString("'as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd'"));
+console.log(mst.parseString('"as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd"'));
+console.log(mst.parseString("And then 'Big' jumped out and \"Small \\\" came over and \" kicked \' Little \\'Tim \\' Tim \' Jenkins in the shin"));
 
 

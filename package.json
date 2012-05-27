@@ -1,7 +1,7 @@
 {
 	"name": "mst",
 	"description": "A general-purpose JavaScript library inspired by LINQ and Matlab, and named after MST3K",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"author": "Paul Baumstarck <pbaumstarck@gmail.com>",
 	"contributors": ["Paul Baumstarck <pbaumstarck@gmail.com>"],
 	"engines": { "node": ">=0.4.0" },

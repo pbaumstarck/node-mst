@@ -14,7 +14,8 @@ var tests = {
 	split: true,
 	histo: true,
 	equal: true,
-	stats: true
+	stats: true,
+	parseString: true
 };
 
 var arr = [1,2,3,4];
@@ -150,14 +151,36 @@ if (tests.stats) {
 	console.log(arr.stats());
 }
 
-function foo() { }
-foo.prototype.class = "foo";
-var f = new foo();
-console.log(f.class);
-
-console.log(mst.parseString("as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd"));
-console.log(mst.parseString("'as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd'"));
-console.log(mst.parseString('"as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd"'));
-console.log(mst.parseString("And then 'Big' jumped out and \"Small \\\" came over and \" kicked \' Little \\'Tim \\' Tim \' Jenkins in the shin"));
+if (tests.parseString) {
+	[
+		"as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd",
+		"'as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd'",
+		'"as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd"',
+		"And then 'Big' jumped out and \"Small \\\" came over and \" kicked \' Little \\'Tim \\' Tim \' Jenkins in the shin",
+		"'Single'\"Double\"''\"\""
+	].each(function(str) {
+		var parse = mst.parseString(str);
+		console.log(parse);
+		console.log("Original: " + str);
+		var reconst = parse.reduce(function(value, item) { return value + item.value; }, "");
+		console.log("Reconst.: " + reconst);
+		if (reconst != str) {
+			throw "Bad parse of: " + str;
+		}
+	});
+	// Test custom delimiters
+	[
+		"So i have /* which should be a comment */ if that works //   /* end end end ..."
+	].each(function(str) {
+		var parse = mst.parseString(str, { pre: "/*", post: "*/" });
+		console.log(parse);
+		console.log("Original: " + str);
+		var reconst = parse.reduce(function(value, item) { return value + item.value; }, "");
+		console.log("Reconst.: " + reconst);
+		if (reconst != str) {
+			throw "Bad parse of: " + str;
+		}
+	});
+}
 
 

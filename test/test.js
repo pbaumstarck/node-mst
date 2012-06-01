@@ -1,4 +1,6 @@
 
+// Added 'sift' method and 'withIxes' option to that and 'where'
+
 var mst = require('../lib/mst.js'),
 	assert = require('assert'),
 	diff = require('diff'),
@@ -7,8 +9,9 @@ var mst = require('../lib/mst.js'),
 var tests = {
 	where: true,
 	select: true,
+	sift: true,
 	makeArray: true,
-	singleton: true,
+	singletons: true,
 	ix: true,
 	colon: true,
 	split: true,
@@ -23,8 +26,44 @@ if (tests.where || tests.select) {
 	console.log("Testing 'where' and 'select' ...");
 	console.log(arr);
 	console.log(arr.where(function(item) { return item > 2; }));
+	console.log(arr.where(function(item) { return item > 2; }));
+	console.log(arr.where(true, function(item) { return item > 2; }));
+	console.log(arr.where("withIxes", function(item) { return item > 2; }));
 	console.log(arr.select(function(item) { return item * item; }));
 }
+
+if (tests.sift) {
+	console.log("Testing 'sift':");
+	console.log(arr.sift(function(item) { return item > 2; }));
+	console.log(arr.sift(true, function(item) { return item > 2; }));
+	console.log(arr.sift("withIxes", function(item) { return item > 2; }));
+	arr = arr.concat(arr);
+	console.log(arr.sift(function(item) {
+		switch (item) {
+		case 1:
+			return true;
+		case 2:
+			return null;
+		case 3:
+			return undefined;
+		case 4:
+			return false;
+		}
+	}));
+	console.log(arr.sift(true, function(item) {
+		switch (item) {
+		case 1:
+			return true;
+		case 2:
+			return null;
+		case 3:
+			return undefined;
+		case 4:
+			return false;
+		}
+	}));
+}
+return;
 
 if (tests.makeArray) {
 	console.log([3].makeArray(0));
@@ -36,9 +75,9 @@ if (tests.makeArray) {
 	console.log(arr);
 }
 
-if (tests.singleton) {
+if (tests.singletons) {
 	var arr = [3,3,3].makeArray(function(i, j, k) { return i + ":" + j + ":" + k; });
-	console.log(arr.singleton(function(value) {
+	console.log(arr.singletons(function(value) {
 		console.log(value);
 	}));
 
@@ -61,7 +100,7 @@ if (tests.singleton) {
 			[23, 24]
 		]
 	];
-	console.log(arr.singleton(function(value) {
+	console.log(arr.singletons(function(value) {
 		var str = value,
 			n = (arguments.length - 1) / 2,
 			ixes = [];

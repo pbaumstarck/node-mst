@@ -18,6 +18,8 @@ var tests = {
 	histo: true,
 	equal: true,
 	stats: true,
+	aggregates: true,
+	replace: true,
 	parseString: true
 };
 
@@ -63,7 +65,6 @@ if (tests.sift) {
 		}
 	}));
 }
-return;
 
 if (tests.makeArray) {
 	console.log([3].makeArray(0));
@@ -189,6 +190,30 @@ if (tests.stats) {
 	console.log(arr);
 	console.log(arr.stats());
 }
+
+if (tests.aggregates) {
+	console.log("Testing aggregates ...");
+	var arr = [0,1,2,3,4,5,6,7,8,9,10];
+	console.log(arr.sum());
+	console.log(arr.prod());
+	console.log(arr.slice(1).prod());
+	console.log(arr.any());
+	console.log(arr.any(function(item) { return false; }));
+	console.log(arr.all());
+	console.log(arr.all(function(item) { return true; }));
+}
+
+if (tests.replace) {
+	arr = [1,2,3,4,5,6,7,8,9,10];
+	console.log(arr);
+	console.log(arr.replace(function(item) { return item * item; }));
+	console.log(arr);
+	console.log(arr.replace(function(item) { return item >= 30 ? item : undefined; }));
+	console.log(arr);
+	console.log(arr.replace(function(item) { return item != 64 ? item : undefined; }));
+	console.log(arr);
+}
+return;
 
 if (tests.parseString) {
 	[

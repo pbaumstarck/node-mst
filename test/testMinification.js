@@ -12,7 +12,7 @@ var str = lines.reduce(function(value, item) { return value + "\n" + item; }, ""
 
 // Parse quoted values and '/*'--'*/' comments
 var quote = { pre: "/*", post: "*/" },
-	parsed = mst.parseString(str, '"', "'", quote);
+	parsed = str.parse('"', "'", quote);
 // Only keep the non-commented lines
 parsed = parsed.where(function(item) { return item.delimiter != quote; });
 // Get the total string size

@@ -21,7 +21,7 @@ var tests = {
 	stats: true,
 	aggregates: true,
 	replace: true,
-	parseString: true
+	parse: true
 };
 
 var arr = [1,2,3,4];
@@ -247,7 +247,7 @@ if (tests.replace) {
 	console.log(arr.replace(-5, function(item) { return -item; }));
 }
 
-if (tests.parseString) {
+if (tests.parse) {
 	[
 		"as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd",
 		"'as;ldfjka;sdlfja;sdfj asl;dkfja;skldfj;asd'",
@@ -255,7 +255,7 @@ if (tests.parseString) {
 		"And then 'Big' jumped out and \"Small \\\" came over and \" kicked \' Little \\'Tim \\' Tim \' Jenkins in the shin",
 		"'Single'\"Double\"''\"\""
 	].each(function(str) {
-		var parse = mst.parseString(str);
+		var parse = str.parse();
 		console.log(parse);
 		console.log("Original: " + str);
 		var reconst = parse.reduce(function(value, item) { return value + item.value; }, "");
@@ -268,7 +268,7 @@ if (tests.parseString) {
 	[
 		"So i have /* which should be a comment */ if that works //   /* end end end ..."
 	].each(function(str) {
-		var parse = mst.parseString(str, { pre: "/*", post: "*/" });
+		var parse = str.parse({ pre: "/*", post: "*/" });
 		console.log(parse);
 		console.log("Original: " + str);
 		var reconst = parse.reduce(function(value, item) { return value + item.value; }, "");
@@ -277,6 +277,8 @@ if (tests.parseString) {
 			throw "Bad parse of: " + str;
 		}
 	});
+	// Test flattening of delimiters
+	console.log("so \"Double 'quote'\" and 'single \"quote\"'".parse(['"', "'"]));
 }
 
 

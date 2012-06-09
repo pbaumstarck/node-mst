@@ -10,6 +10,7 @@ var tests = {
 	where: true,
 	select: true,
 	sift: true,
+	each: true,
 	makeArray: true,
 	singletons: true,
 	ix: true,
@@ -24,21 +25,33 @@ var tests = {
 };
 
 var arr = [1,2,3,4];
-if (tests.where || tests.select) {
-	console.log("Testing 'where' and 'select' ...");
+if (tests.where) {
+	console.log("Testing 'where' ...");
+	console.log(arr);	
+	console.log(arr.where(function(item) { return item > 2; }));
+	console.log(arr.where(function(item) { return item < 2; }));
+	console.log(arr.where(function(item) { return item <= 2; }));
+	console.log(arr.where("ixes", function(item) { return item > 2; }));
+}
+
+if (tests.select) {
+	console.log("Testing 'select' ...");
 	console.log(arr);
-	console.log(arr.where(function(item) { return item > 2; }));
-	console.log(arr.where(function(item) { return item > 2; }));
-	console.log(arr.where(true, function(item) { return item > 2; }));
-	console.log(arr.where("withIxes", function(item) { return item > 2; }));
+	console.log(arr.select());
 	console.log(arr.select(function(item) { return item * item; }));
+	console.log(arr.select("reverse", function(item) { return item * item; }));
+	console.log(arr.select(2, function(item) { return item * item; }));
+	console.log(arr.select(1, 2, function(item) { return item * item; }));
+	console.log(arr.select("reverse", 2, function(item) { return item * item; }));
+	console.log(arr.select("reverse", 2, 2, function(item) { return item * item; }));
+	console.log(arr.select("reverse", -2, function(item) { return item * item; }));
+	console.log(arr.select(0, -1, function(item) { return item * item; }));
 }
 
 if (tests.sift) {
-	console.log("Testing 'sift':");
+	console.log("Testing 'sift' ...");
 	console.log(arr.sift(function(item) { return item > 2; }));
-	console.log(arr.sift(true, function(item) { return item > 2; }));
-	console.log(arr.sift("withIxes", function(item) { return item > 2; }));
+	console.log(arr.sift("ixes", function(item) { return item > 2; }));
 	arr = arr.concat(arr);
 	console.log(arr.sift(function(item) {
 		switch (item) {
@@ -52,7 +65,7 @@ if (tests.sift) {
 			return false;
 		}
 	}));
-	console.log(arr.sift(true, function(item) {
+	console.log(arr.sift("ixes", function(item) {
 		switch (item) {
 		case 1:
 			return true;
@@ -64,6 +77,21 @@ if (tests.sift) {
 			return false;
 		}
 	}));
+}
+
+if (tests.each) {
+	console.log("Testing 'each' ...");
+	console.log(arr);
+	console.log(arr.each(function(item) {}));
+	console.log(arr.each(function(item) { return item == 4; }));
+	var str = "";
+	console.log(arr.each("reverse", function(item) { str += ", " + item; }) + "> " + str);
+	str = "";
+	console.log(arr.each(3, function(item) { str += ", " + item; }) + "> " + str);
+	str = "";
+	console.log(arr.each(3, 6, function(item) { str += ", " + item; }) + "> " + str);
+	str = "";
+	console.log(arr.each("reverse", 6, 3, function(item) { str += ", " + item; }) + "> " + str);
 }
 
 if (tests.makeArray) {
@@ -159,6 +187,7 @@ if (tests.split) {
 	console.log(arr.split(function(item) { return item == 2; }));
 	console.log(arr.split(function(item) { return item > 2; }));
 	console.log(arr.split(function(item) { return item >= 2 && item <= 4; }));
+	console.log(arr.split(function(item) { return true; }));
 }
 
 if (tests.histo) {
@@ -212,8 +241,11 @@ if (tests.replace) {
 	console.log(arr);
 	console.log(arr.replace(function(item) { return item != 64 ? item : undefined; }));
 	console.log(arr);
+	arr = arr.concat(arr);
+	console.log(arr.replace(4, function(item) { return -item; }));
+	console.log(arr.replace(5, 2, function(item) { return -item; }));
+	console.log(arr.replace(-5, function(item) { return -item; }));
 }
-return;
 
 if (tests.parseString) {
 	[

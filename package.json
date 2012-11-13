@@ -1,7 +1,7 @@
 {
 	"name": "mst",
 	"description": "A general-purpose JavaScript library inspired by LINQ and Matlab, and named after MST3K",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"author": "Paul Baumstarck <pbaumstarck@gmail.com>",
 	"contributors": ["Paul Baumstarck <pbaumstarck@gmail.com>"],
 	"engines": { "node": ">=0.4.0" },
@@ -11,10 +11,7 @@
 		"url": "http://github.com/pbaumstarck/node-mst.git"
 	},
     "dependencies": {
-        "diff": "1.0.3",
-        "mstarrays": "1.1.1",
-        "mstobjects": "1.1.2",
-        "mststrings": "1.0.4"
+        "diff": "1.0.3"
     }
 }
 

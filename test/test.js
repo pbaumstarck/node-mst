@@ -42,7 +42,8 @@ var tests = {
 	// replace: true,
 	shuffle: true,
 	subsets: true,
-	countMat: true
+	countMat: true,
+	ulam: true
 };
 // $$.each(tests, function(key) {
 // 	if (key != "equal") {
@@ -586,6 +587,61 @@ if (tests.countMat) {
 	console.log("Equal?: " + $$.equal(res1, res2));
 }
 
+if (tests.ulam) {
+	console.log("Testing 'ulam' ...");
+	// function: plotUlam
+	// For a list of 'x,y' positions, plot them visually
+	function plotUlam(poses) {
+		// Determine the bounds
+		var bounds = {
+			x: {
+				min: 0,
+				max: 0
+			},
+			y: {
+				min: 0,
+				max: 0
+			}
+		};
+		$$.each(poses, function(pos) {
+			if (pos.x < bounds.x.min) {
+				bounds.x.min = pos.x;
+			}
+			if (pos.x > bounds.x.max) {
+				bounds.x.max = pos.x;
+			}
+			if (pos.y < bounds.y.min) {
+				bounds.y.min = pos.y;
+			}
+			if (pos.y > bounds.y.max) {
+				bounds.y.max = pos.y;
+			}
+		});
+		var matrix = $$.makeArray([bounds.y.max - bounds.y.min + 1, bounds.x.max - bounds.x.min + 1], " ");
+		$$.each(poses, function(pos) {
+			var x = pos.x - bounds.x.min,
+				y = pos.y - bounds.y.min,
+				str = "" + pos.ix;
+			if (matrix[y][x] != " ") {
+				throw new Error("Over-writing something!");
+			}
+			matrix[y][x] = str.substr(str.length - 1);
+		});
+		$$.each(matrix, "reverse", function(line) {
+			console.log("    " + line.join(""));
+		});
+	}
+
+	var poses = [];
+	for (var i = 0; i < 100; ++i) {
+		var pos = $$.ulam(i);
+		pos.ix = i;
+		poses.push(pos);
+		console.log("  Ulam after position " + i + ":");
+		// console.log($$.ulam(i));
+		plotUlam(poses);
+	}
+}
 
 // // Just test that things are visible
 // console.log("Arrays?: " + typeof Array.prototype.countMat);

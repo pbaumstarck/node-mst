@@ -43,13 +43,9 @@ var tests = {
 	shuffle: true,
 	subsets: true,
 	countMat: true,
-	ulam: true
+	ulam: true,
+	interp: true
 };
-// $$.each(tests, function(key) {
-// 	if (key != "equal") {
-// 		tests[key] = false;
-// 	}
-// });
 
 var obj = {
 	"one": 1,
@@ -640,6 +636,43 @@ if (tests.ulam) {
 		console.log("  Ulam after position " + i + ":");
 		// console.log($$.ulam(i));
 		plotUlam(poses);
+	}
+}
+
+if (tests.interp) {
+	var interp = new $$.Interpolator();
+	interp.addPoints({ x: -2, y: 0 }, { x: 0, y: 0, "y-": -1, "y+": 1 }, { x: 2, y: 0 });
+	for (var i = -2.5; i <= 2.5; i += 0.5) {
+		if (i == 0) {
+			console.log("-0.00001: " + interp.getValue(-0.00001));
+		}
+		console.log(i + ": " + interp.getValue(i));
+		if (i == 0) {
+			console.log("0.00001: " + interp.getValue(0.00001));
+		}
+	}
+	
+	var rgb = new $$.RgbInterpolator();
+	rgb.addPoints({
+		x: -2,
+		y: "#ff0000"
+	},{
+		x: 0,
+		"y-": "#550000",
+		y: "#555555",
+		"y+": "#000055"
+	},{
+		x: 2,
+		y: "#0000ff"
+	});
+	for (var i = -2.5; i <= 2.5; i += 0.5) {
+		if (i == 0) {
+			console.log("-0.00001: " + rgb.getColor(-0.00001));
+		}
+		console.log(i + ": "+ rgb.getColor(i));
+		if (i == 0) {
+			console.log("0.00001: " + rgb.getColor(0.00001));
+		}
 	}
 }
 

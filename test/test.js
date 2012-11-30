@@ -44,7 +44,9 @@ var tests = {
 	subsets: true,
 	countMat: true,
 	ulam: true,
-	interp: true
+	interp: true,
+	max: true,
+	min: true
 };
 
 var obj = {
@@ -674,6 +676,35 @@ if (tests.interp) {
 			console.log("0.00001: " + rgb.getColor(0.00001));
 		}
 	}
+}
+
+if (tests.max) {
+	console.log($$.max(null));
+	console.log($$.max([]));
+	console.log($$.max({}));
+	console.log($$.max([1, 2, 3, -1]));
+	console.log($$.max([22, 47, -16, -43]));
+	console.log($$.max([22, 47, -16, -43], function(elem) { return -elem; }));
+	var testObj = {
+		foo: 7,
+		bar: 19,
+		moo: -22
+	};
+	console.log($$.max(testObj));
+	console.log($$.max(testObj, function(elem) { return -elem; }));
+}
+
+if (tests.min) {
+	console.log($$.min([1, 2, 3, -1]));
+	console.log($$.min([22, 47, -16, -43]));
+	console.log($$.min([22, 47, -16, -43], function(elem) { return -elem; }));
+	var testObj = {
+		foo: 7,
+		bar: 19,
+		moo: -22
+	};
+	console.log($$.min(testObj));
+	console.log($$.min(testObj, function(elem) { return -elem; }));
 }
 
 // // Just test that things are visible

@@ -46,7 +46,8 @@ var tests = {
 	ulam: true,
 	interp: true,
 	max: true,
-	min: true
+	min: true,
+	evalKernel: true
 };
 
 var obj = {
@@ -580,8 +581,8 @@ if (tests.countMat) {
 // 	console.log("Generator: " + (Math.round(elapsed2 / 100.0) / 10) + " s");
 // 	console.log(elapsed1 + ", " + elapsed2 + ", " + (Math.max(elapsed1, elapsed2)
 // 		/ Math.min(elapsed1, elapsed2)));
-	console.log("Within a factor of three in time?: " + ((Math.max(elapsed1, elapsed2)
-		/ Math.min(elapsed1, elapsed2)) <= 3.0 ? "true" : "false"));
+	console.log("Within a factor of ten in time?: " + ((Math.max(elapsed1, elapsed2)
+		/ Math.min(elapsed1, elapsed2)) <= 10.0 ? "true" : "false"));
 	console.log("Equal?: " + $$.equal(res1, res2));
 }
 
@@ -705,6 +706,38 @@ if (tests.min) {
 	};
 	console.log($$.min(testObj));
 	console.log($$.min(testObj, function(elem) { return -elem; }));
+}
+
+if (tests.evalKernel) {
+	var kernel,
+		innerKernel = function(args) {
+		var str = kernel.length + ": ";
+		for (var i = 0; i < args.length; ++i) { 
+			str += (i > 0 ? ", " : "") + args[i];
+		}
+		console.log(str);
+	}
+	for (var i = 0; i < 4; ++i) {
+		if (i == 0) {
+			kernel = function() { innerKernel(arguments); };
+		} else if (i == 1) {
+			kernel = function(a) { innerKernel(arguments); };
+		} else if (i == 2) {
+			kernel = function(a,b) { innerKernel(arguments); };
+		} else if (i == 3) {
+			kernel = function(a,b,c) { innerKernel(arguments); };
+		} else {
+			kernel = function(a,b,c,d) { innerKernel(arguments); };
+		}
+		$$.evalKernel(kernel, "key", "value", {});
+		$$.evalKernel(kernel, 0, "value", []);
+		$$.evalKernel(kernel, "key", "pre-value", {}, { pre: [-1] });
+		$$.evalKernel(kernel, 0, "pre-value", [], { pre: [-1] });
+		$$.evalKernel(kernel, "key", "post-value", {}, { post: [100] });
+		$$.evalKernel(kernel, 0, "post-value", [], { post: [100] });
+		$$.evalKernel(kernel, "key", "pre-post-value", {}, { pre: [-1], post: [100] });
+		$$.evalKernel(kernel, 0, "pre-post-value", [], { pre: [-1],post: [100] });
+	}
 }
 
 // // Just test that things are visible

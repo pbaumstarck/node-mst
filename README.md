@@ -87,3 +87,89 @@ For arrays, the kernel function accepts arguments of `(element, index, array)`, 
 	// [-1, -2, -3]
 ```
 
+
+Easy Utility Functions
+----------------------
+
+Test whether any two objects are deeply equal with `equal`:
+
+```javascript
+	var $$ = require('mst');
+	
+	var obj1 = {
+		foo: {
+			bar: 1,
+			moo: [1, 2, 3]
+		},
+		zoo: 16
+	},
+		obj2 = {
+		zoo: 16,
+		foo: {
+			bar: 1,
+			moo: [1, 2, 3]
+		}
+	};
+	console.log($$.equal(obj1, obj2));
+	// true
+```
+
+Perform a deep copy of any object using `clone`:
+
+```javascript
+	var $$ = require('mst');
+	
+	var obj = {
+		foo: {
+			bar: 1,
+			moo: [1, 2, 3]
+		},
+		zoo: 16
+	};
+	var clone = $$.clone(obj);
+	console.log(clone);
+	// { foo: { bar: 1, moo: [ 1, 2, 3 ] }, zoo: 16 }
+	console.log(clone == obj);
+	// false
+	console.log($$.equal(clone, obj));
+	// true
+	console.log(clone.foo.moo == obj.foo.moo);
+	// false
+	console.log($$.equal(clone.foo.moo, obj.foo.moo));
+	// true
+```
+
+Recursively examine any object, with any components, using the `kernel` function:
+
+```javascript
+	var $$ = require('mst');
+	
+	var obj = {
+		foo: {
+			bar: 1,
+			moo: [1, 2, 3]
+		},
+		zoo: 16
+	};
+	$$.kernel(obj, function(key, value, parent, parents) {
+		var str = "";
+		for (var i = 1; i < parents.length; ++i) {
+			str += "  ";
+		}
+		str += key + ": " + value;
+		console.log(str);
+	});
+	// foo: [object Object]
+  	//   bar: 1
+  	//   moo: 1,2,3
+    	//     0: 1
+    	//     1: 2
+    	//     2: 3
+	//   zoo: 16
+	
+	// Find any '3's in any value position, anywhere
+	var anyThrees = false;
+	$$.kernel(obj, function(key, value) { anyThrees |= value == 3; });
+	console.log(anyThrees ? "true" : "false");
+	// true
+```

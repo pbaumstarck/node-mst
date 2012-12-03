@@ -47,7 +47,9 @@ var tests = {
 	interp: true,
 	max: true,
 	min: true,
-	evalKernel: true
+	evalKernel: true,
+	sort: true,
+	sortIxes: true
 };
 
 var obj = {
@@ -739,6 +741,25 @@ if (tests.evalKernel) {
 		$$.evalKernel(kernel, 0, "pre-post-value", [], { pre: [-1],post: [100] });
 	}
 }
+
+if (tests.sort) {
+	var arr = ["asdf", "jkl;", "aaaa", "qwerty", "b", "a", "c", "e", "d"];
+	console.log($$.sort(arr.slice()));
+	console.log($$.sort(arr.slice(), function(a, b) { return a.length - b.length; }));
+	console.log($$.sort(arr.slice(),
+		function(a, b) { return a.length - b.length; },
+		function(a, b) { return -(a < b ? -1 : (a > b ? 1 : 0)); }));
+}
+
+if (tests.sortIxes) {
+	var arr1 = [1, 4, 8, 3, 7, 6, 2, 9, 5],
+		ret = $$.sortIxes(arr1.slice());
+	console.log(arr1);
+	console.log(ret.array);
+	console.log(ret.ixes);
+	console.log($$.select(ret.ixes, function(ix) { return arr1[ix]; }));
+}
+
 
 // // Just test that things are visible
 // console.log("Arrays?: " + typeof Array.prototype.countMat);

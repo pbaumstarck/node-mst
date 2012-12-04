@@ -29,7 +29,7 @@ For arrays, the kernel function accepts arguments of `(element, index, array)`, 
 
 ### `each`
 
-`each` will visit all items in order, will break on a `return true;`, and return the last value of the iterator variable. It works for objects, too, and the kernel function is optional, so a fast way to find out the number of key&dash;value pairs in an object is this:
+`each` will visit all items in order, will break on a `return true;`, and return the last value of the iterator variable. It works for objects, too, and the kernel function is optional, so a fast way to find out the number of key&ndash;value pairs in an object is this:
 
 ```javascript
 	var $$ = require('mst');

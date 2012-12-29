@@ -51,7 +51,8 @@ var tests = {
 	sort: true,
 	sortIxes: true,
 	trie: true,
-	heap: true
+	heap: true,
+	cacher: true
 };
 
 var obj = {
@@ -836,6 +837,26 @@ if (tests.heap) {
 			heap.add(min);
 		}
 	}
+}
+
+if (tests.cacher) {
+	console.log("Testing 'Cacher' ...");
+	var arr = new $$.Cacher([]);
+	arr.addProperty("mean", function(arr) {
+		return arr.reduce(function(value, item) { return value + item; }, 0) / (arr.length == 0 ? 1 : arr.length);
+	});
+	console.log(arr.getProperty("mean"));
+	var leArr = arr.get(true);
+	for (var i = 0; i < 37; ++i) {
+		leArr.push(i);
+	}
+	console.log(arr.getProperty("mean"));
+	for (var i = 37; i < 74; ++i) {
+		leArr.push(i);
+	}
+	console.log(arr.getProperty("mean"));
+	arr.get(true);
+	console.log(arr.getProperty("mean"));
 }
 
 // // Just test that things are visible

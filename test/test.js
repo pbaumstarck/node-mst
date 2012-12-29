@@ -49,7 +49,8 @@ var tests = {
 	min: true,
 	evalKernel: true,
 	sort: true,
-	sortIxes: true
+	sortIxes: true,
+	trie: true
 };
 
 var obj = {
@@ -758,6 +759,25 @@ if (tests.sortIxes) {
 	console.log(ret.array);
 	console.log(ret.ixes);
 	console.log($$.select(ret.ixes, function(ix) { return arr1[ix]; }));
+}
+
+if (tests.trie) {
+	var trie = new $$.Trie();
+	trie.addWords("fish");
+	console.log(JSON.stringify(trie.root(), null, 2));
+	console.log("fi: " + trie.hasWord("fi"));
+	console.log("fish: " + trie.hasWord("fish"));
+	console.log("fishes: " + trie.hasWord("fishes"));
+	console.log("boot: " + trie.hasWord("boot"));
+	
+	trie.addWords("fishes", "fiesty", "beer");
+	console.log(JSON.stringify(trie.root(), null, 2));
+	console.log("fi: " + trie.hasWord("fi"));
+	console.log("fish: " + trie.hasWord("fish"));
+	console.log("fishes: " + trie.hasWord("fishes"));
+	console.log("boot: " + trie.hasWord("boot"));
+	console.log("fiesta: " + trie.hasWord("fiesta"));
+	console.log("fiesty: " + trie.hasWord("fiesty"));
 }
 
 

@@ -2514,5 +2514,17 @@
 		7,
 		8,
 		9
-	]
+	],
+	"{\n  \"terminal\": false,\n  \"children\": {\n    \"f\": {\n      \"terminal\": false,\n      \"children\": {\n        \"i\": {\n          \"terminal\": false,\n          \"children\": {\n            \"s\": {\n              \"terminal\": false,\n              \"children\": {\n                \"h\": {\n                  \"terminal\": true,\n                  \"children\": {}\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}",
+	"fi: false",
+	"fish: true",
+	"fishes: false",
+	"boot: false",
+	"{\n  \"terminal\": false,\n  \"children\": {\n    \"f\": {\n      \"terminal\": false,\n      \"children\": {\n        \"i\": {\n          \"terminal\": false,\n          \"children\": {\n            \"s\": {\n              \"terminal\": false,\n              \"children\": {\n                \"h\": {\n                  \"terminal\": true,\n                  \"children\": {\n                    \"e\": {\n                      \"terminal\": false,\n                      \"children\": {\n                        \"s\": {\n                          \"terminal\": true,\n                          \"children\": {}\n                        }\n                      }\n                    }\n                  }\n                }\n              }\n            },\n            \"e\": {\n              \"terminal\": false,\n              \"children\": {\n                \"s\": {\n                  \"terminal\": false,\n                  \"children\": {\n                    \"t\": {\n                      \"terminal\": false,\n                      \"children\": {\n                        \"y\": {\n                          \"terminal\": true,\n                          \"children\": {}\n                        }\n                      }\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"b\": {\n      \"terminal\": false,\n      \"children\": {\n        \"e\": {\n          \"terminal\": false,\n          \"children\": {\n            \"e\": {\n              \"terminal\": false,\n              \"children\": {\n                \"r\": {\n                  \"terminal\": true,\n                  \"children\": {}\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}",
+	"fi: false",
+	"fish: true",
+	"fishes: true",
+	"boot: false",
+	"fiesta: false",
+	"fiesty: true"
 ]

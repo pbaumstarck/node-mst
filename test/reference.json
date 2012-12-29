@@ -2328,6 +2328,7 @@
 	"    0101234503",
 	"    1234567892",
 	"    2345678901",
+	"Testing 'Interpolator' ...",
 	"-2.5: 0",
 	"-2: 0",
 	"-1.5: -0.25",
@@ -2354,6 +2355,7 @@
 	"1.5: #0000d5",
 	"2: #0000ff",
 	"2.5: #0000ff",
+	"Testing 'max' ...",
 	{},
 	{
 		"key": -1,
@@ -2383,6 +2385,7 @@
 		"value": 22,
 		"key": "moo"
 	},
+	"Testing 'min' ...",
 	{
 		"value": -1,
 		"key": 3,
@@ -2406,6 +2409,7 @@
 		"value": -19,
 		"key": "bar"
 	},
+	"Testing 'evalKernel' ...",
 	"0: key, value, [object Object]",
 	"0: value, 0, ",
 	"0: -1, key, pre-value, [object Object]",
@@ -2438,6 +2442,7 @@
 	"3: post-value, 0, , 100",
 	"3: -1, key, pre-post-value, [object Object], 100",
 	"3: -1, pre-post-value, 0, , 100",
+	"Testing 'sort' ...",
 	[
 		"a",
 		"aaaa",
@@ -2471,6 +2476,7 @@
 		"aaaa",
 		"qwerty"
 	],
+	"Testing 'sortIxes' ...",
 	[
 		1,
 		4,
@@ -2515,6 +2521,7 @@
 		8,
 		9
 	],
+	"Testing 'Trie' ...",
 	"{\n  \"terminal\": false,\n  \"children\": {\n    \"f\": {\n      \"terminal\": false,\n      \"children\": {\n        \"i\": {\n          \"terminal\": false,\n          \"children\": {\n            \"s\": {\n              \"terminal\": false,\n              \"children\": {\n                \"h\": {\n                  \"terminal\": true,\n                  \"children\": {}\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}",
 	"fi: false",
 	"fish: true",
@@ -2526,5 +2533,237 @@
 	"fishes: true",
 	"boot: false",
 	"fiesta: false",
-	"fiesty: true"
+	"fiesty: true",
+	"Testing 'Heap' ...",
+	"min mode:",
+	-10,
+	-6,
+	-5,
+	-4,
+	-4,
+	-3,
+	-3,
+	-2,
+	-2,
+	-2,
+	-1,
+	-1,
+	-1,
+	1,
+	1,
+	1,
+	2,
+	2,
+	2,
+	3,
+	3,
+	4,
+	4,
+	5,
+	6,
+	10,
+	"max mode:",
+	10,
+	6,
+	5,
+	" Added back: -105",
+	4,
+	4,
+	3,
+	" Added back: -103",
+	3,
+	2,
+	2,
+	" Added back: -102",
+	2,
+	1,
+	1,
+	" Added back: -101",
+	1,
+	-1,
+	-1,
+	" Added back: -99",
+	-1,
+	-2,
+	-2,
+	" Added back: -98",
+	-2,
+	-3,
+	-3,
+	" Added back: -97",
+	-4,
+	-4,
+	-5,
+	" Added back: -95",
+	-6,
+	-10,
+	-95,
+	" Added back: -5",
+	-5,
+	-97,
+	-98,
+	" Added back: -2",
+	-2,
+	-99,
+	-101,
+	" Added back: 1",
+	1,
+	-102,
+	-103,
+	" Added back: 3",
+	3,
+	-105,
+	"max-on-struct mode:",
+	{
+		"value": 10,
+		"flavor": "Foo: 10"
+	},
+	{
+		"value": 6,
+		"flavor": "Foo: 9"
+	},
+	{
+		"value": -105,
+		"flavor": "Foo: 8"
+	},
+	{
+		"value": 4,
+		"flavor": "Foo: 7"
+	},
+	{
+		"value": 4,
+		"flavor": "Foo: 3"
+	},
+	{
+		"value": 3,
+		"flavor": "Foo: 2"
+	},
+	{
+		"value": 3,
+		"flavor": "Foo: 6"
+	},
+	{
+		"value": 2,
+		"flavor": "Foo: 5"
+	},
+	{
+		"value": -102,
+		"flavor": "Foo: 12"
+	},
+	{
+		"value": 2,
+		"flavor": "Foo: 1"
+	},
+	{
+		"value": 1,
+		"flavor": "Foo: 0"
+	},
+	{
+		"value": 1,
+		"flavor": "Foo: 4"
+	},
+	{
+		"value": 1,
+		"flavor": "Foo: 11"
+	},
+	{
+		"value": -1,
+		"flavor": "Foo: 24"
+	},
+	{
+		"value": -99,
+		"flavor": "Foo: 17"
+	},
+	{
+		"value": -1,
+		"flavor": "Foo: 13"
+	},
+	{
+		"value": -2,
+		"flavor": "Foo: 18"
+	},
+	{
+		"value": -2,
+		"flavor": "Foo: 25"
+	},
+	{
+		"value": -2,
+		"flavor": "Foo: 14"
+	},
+	{
+		"value": -3,
+		"flavor": "Foo: 15"
+	},
+	{
+		"value": -97,
+		"flavor": "Foo: 19"
+	},
+	{
+		"value": -4,
+		"flavor": "Foo: 16"
+	},
+	{
+		"value": -4,
+		"flavor": "Foo: 20"
+	},
+	{
+		"value": -5,
+		"flavor": "Foo: 21"
+	},
+	{
+		"value": -6,
+		"flavor": "Foo: 22"
+	},
+	{
+		"value": -10,
+		"flavor": "Foo: 23"
+	},
+	{
+		"value": -5,
+		"flavor": "Foo: 21"
+	},
+	{
+		"value": -5,
+		"flavor": "Foo: 21"
+	},
+	{
+		"value": -97,
+		"flavor": "Foo: 19"
+	},
+	{
+		"value": -2,
+		"flavor": "Foo: 25"
+	},
+	{
+		"value": -2,
+		"flavor": "Foo: 25"
+	},
+	{
+		"value": -99,
+		"flavor": "Foo: 17"
+	},
+	{
+		"value": 1,
+		"flavor": "Foo: 4"
+	},
+	{
+		"value": 1,
+		"flavor": "Foo: 4"
+	},
+	{
+		"value": -102,
+		"flavor": "Foo: 12"
+	},
+	{
+		"value": 3,
+		"flavor": "Foo: 2"
+	},
+	{
+		"value": 3,
+		"flavor": "Foo: 2"
+	},
+	{
+		"value": -105,
+		"flavor": "Foo: 8"
+	}
 ]

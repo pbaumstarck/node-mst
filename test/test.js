@@ -50,7 +50,8 @@ var tests = {
 	evalKernel: true,
 	sort: true,
 	sortIxes: true,
-	trie: true
+	trie: true,
+	heap: true
 };
 
 var obj = {
@@ -646,6 +647,7 @@ if (tests.ulam) {
 }
 
 if (tests.interp) {
+	console.log("Testing 'Interpolator' ...");
 	var interp = new $$.Interpolator();
 	interp.addPoints({ x: -2, y: 0 }, { x: 0, y: 0, "y-": -1, "y+": 1 }, { x: 2, y: 0 });
 	for (var i = -2.5; i <= 2.5; i += 0.5) {
@@ -683,6 +685,7 @@ if (tests.interp) {
 }
 
 if (tests.max) {
+	console.log("Testing 'max' ...");
 	console.log($$.max(null));
 	console.log($$.max([]));
 	console.log($$.max({}));
@@ -699,6 +702,7 @@ if (tests.max) {
 }
 
 if (tests.min) {
+	console.log("Testing 'min' ...");
 	console.log($$.min([1, 2, 3, -1]));
 	console.log($$.min([22, 47, -16, -43]));
 	console.log($$.min([22, 47, -16, -43], function(elem) { return -elem; }));
@@ -712,6 +716,7 @@ if (tests.min) {
 }
 
 if (tests.evalKernel) {
+	console.log("Testing 'evalKernel' ...");
 	var kernel,
 		innerKernel = function(args) {
 		var str = kernel.length + ": ";
@@ -744,6 +749,7 @@ if (tests.evalKernel) {
 }
 
 if (tests.sort) {
+	console.log("Testing 'sort' ...");
 	var arr = ["asdf", "jkl;", "aaaa", "qwerty", "b", "a", "c", "e", "d"];
 	console.log($$.sort(arr.slice()));
 	console.log($$.sort(arr.slice(), function(a, b) { return a.length - b.length; }));
@@ -753,6 +759,7 @@ if (tests.sort) {
 }
 
 if (tests.sortIxes) {
+	console.log("Testing 'sortIxes' ...");
 	var arr1 = [1, 4, 8, 3, 7, 6, 2, 9, 5],
 		ret = $$.sortIxes(arr1.slice());
 	console.log(arr1);
@@ -762,6 +769,7 @@ if (tests.sortIxes) {
 }
 
 if (tests.trie) {
+	console.log("Testing 'Trie' ...");
 	var trie = new $$.Trie();
 	trie.addWords("fish");
 	console.log(JSON.stringify(trie.root(), null, 2));
@@ -780,6 +788,55 @@ if (tests.trie) {
 	console.log("fiesty: " + trie.hasWord("fiesty"));
 }
 
+if (tests.heap) {
+	console.log("Testing 'Heap' ...");
+	console.log("min mode:");
+	var heap = new $$.Heap(),
+		i;
+	heap.add(1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 10, 1, 2);
+	heap.add(-1, -2, -3, -4, -1, -2, -3, -4, -5, -6, -10, -1, -2);
+	while (heap.size() > 0) {
+		var min = heap.extract();
+		console.log(min);
+	}
+
+	// Now try a max heap
+	console.log("max mode:");
+	heap = new $$.Heap(function(val) { return -val; });
+	heap.add(1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 10, 1, 2);
+	heap.add(-1, -2, -3, -4, -1, -2, -3, -4, -5, -6, -10, -1, -2);
+	i = 0;
+	while (heap.size() > 0) {
+		var min = heap.extract();
+		console.log(min);
+		if (++i % 3 == 0) {
+			// Add back its unary inverse
+			heap.add(-100 - min);
+			console.log(" Added back: " + (-100 - min));
+		}
+	}
+
+	// Now try a max heap on a struct
+	console.log("max-on-struct mode:");
+	var vals = [1, 2, 3, 4, 1, 2, 3, 4, 5, 6, 10, 1, 2, -1, -2, -3, -4, -1, -2, -3, -4, -5, -6, -10, -1, -2],
+	heap = new $$.Heap(function(val) { return -val.value; });
+	for (var i = 0; i < vals.length; ++i) {
+		heap.add({
+			value: vals[i],
+			flavor: "Foo: " + i
+		});
+	}
+	i = 0;
+	while (heap.size() > 0) {
+		var min = heap.extract();
+		console.log(min);
+		if (++i % 3 == 0) {
+			// Add back its unary inverse
+			min.value = -100 - min.value;
+			heap.add(min);
+		}
+	}
+}
 
 // // Just test that things are visible
 // console.log("Arrays?: " + typeof Array.prototype.countMat);

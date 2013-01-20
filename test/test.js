@@ -52,7 +52,8 @@ var tests = {
 	sortIxes: true,
 	trie: true,
 	heap: true,
-	cacher: true
+	cacher: true,
+	pretty: true
 };
 
 var obj = {
@@ -857,6 +858,72 @@ if (tests.cacher) {
 	console.log(arr.getProperty("mean"));
 	arr.get(true);
 	console.log(arr.getProperty("mean"));
+}
+
+if (tests.pretty) {
+    console.log("Testing 'pretty' ...");
+    $$.each([
+        1,
+        -1,
+        11,
+        -11,
+        111,
+        -111,
+        1111,
+        -1111,
+        11111,
+        -11111,
+        111111,
+        -111111,
+        1111111,
+        -1111111,
+        11111111,
+        -11111111,
+        .1,
+        -.1,
+        .11,
+        -.11,
+        .111,
+        -.111,
+        .1111,
+        -.1111,
+        .11111,
+        -.11111,
+        .111111,
+        -.111111,
+        .1111111,
+        -.1111111,
+        .11111111,
+        -.11111111,
+        1.1,
+        -1.1,
+        11.11,
+        -11.11,
+        111.111,
+        -111.111,
+        1111.1111,
+        -11111111,
+        11111.11111,
+        -11111.11111,
+        111111.111111,
+        -111111.111111,
+        1111111.1111111,
+        -1111111.1111111,
+        11111111.11111111,
+        -11111111.11111111,
+        { value: 11111111.1111111111, separator: ";" },
+        { value: -11111111.1111111111, separator: ";" },
+        { value: 11111111.1111111111, integerSep: ";", decimalSep: "#" },
+        { value: -11111111.1111111111, integerSep: ";", decimalSep: "#" },
+        { value: 11111111.1111111111, separator: ";", group: 4 },
+        { value: -11111111.1111111111, separator: ";", group: 4 },
+        { value: 11111111.1111111111, integerSep: ";", decimalSep: "#", group: 4 },
+        { value: -11111111.1111111111, integerSep: ";", decimalSep: "#", group: 4 },
+        { value: 11111111.1111111111, group: 4 },
+        { value: -11111111.1111111111, group: 4 }
+    ], function(val) {
+        console.log(val + " => " + $$.pretty(val));
+    });
 }
 
 // // Just test that things are visible

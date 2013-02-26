@@ -292,7 +292,7 @@ if (tests.ix) {
 var arr = [1,2,3,4];
 if (tests.where) {
 	console.log("Testing 'where' ...");
-	console.log(arr);	
+	console.log(arr);
 	console.log($$.where(arr, function(item) { return item > 2; }));
 	console.log($$.where(arr, function(item) { return item < 2; }));
 	console.log($$.where(arr, function(item) { return item <= 2; }));
@@ -499,7 +499,7 @@ if (tests.shuffle) {
 		arr.splice.apply(arr, [0, length].concat(temp));
 		return arr;
 	}
-	
+
 	// Does a simple, inefficient in shuffle for reference purposes
 	function inShuffle(arr) {
 		var temp = [],
@@ -513,7 +513,7 @@ if (tests.shuffle) {
 		arr.splice.apply(arr, [0, length].concat(temp));
 		return arr;
 	}
-	
+
 	var tests1 = [
 		$$.colon([0,2]),
         $$.colon([0,3]),
@@ -531,7 +531,7 @@ if (tests.shuffle) {
 			console.log("Failed in-shuffle for: " + arr.length);
 			all = false;
 		}
-		
+
 		ref = outShuffle(arr.slice(0));
 		test = $$.shuffle(arr.slice(0), "out");
 		if (ref.length != test.length || !$$.all($$.select(ref, function(value, i) { return value == test[i]; }))) {
@@ -574,7 +574,7 @@ if (tests.countMat) {
 	console.log($$.countMat([2, 2]));
 	console.log($$.countMat([2, 3, 4]));
 	console.log($$.countMat([2, 0.33333, 4]));
-	
+
 	var start = Date.now(),
 		res1 = $$.countMat($$.makeArray([14], 2)),
 		elapsed1 = Date.now() - start;
@@ -661,7 +661,7 @@ if (tests.interp) {
 			console.log("0.00001: " + interp.getValue(0.00001));
 		}
 	}
-	
+
 	var rgb = new $$.RgbInterpolator();
 	rgb.addPoints({
 		x: -2,
@@ -722,7 +722,7 @@ if (tests.evalKernel) {
 	var kernel,
 		innerKernel = function(args) {
 		var str = kernel.length + ": ";
-		for (var i = 0; i < args.length; ++i) { 
+		for (var i = 0; i < args.length; ++i) {
 			str += (i > 0 ? ", " : "") + args[i];
 		}
 		console.log(str);
@@ -779,7 +779,7 @@ if (tests.trie) {
 	console.log("fish: " + trie.hasWord("fish"));
 	console.log("fishes: " + trie.hasWord("fishes"));
 	console.log("boot: " + trie.hasWord("boot"));
-	
+
 	trie.addWords("fishes", "fiesty", "beer");
 	console.log(JSON.stringify(trie.root(), null, 2));
 	console.log("fi: " + trie.hasWord("fi"));
@@ -924,6 +924,84 @@ if (tests.pretty) {
     ], function(val) {
         console.log(val + " => " + $$.pretty(val));
     });
+}
+
+if (tests.limiter) {
+	console.log("Testing 'Limiter' ...");
+	var window1 = 1000,
+		limit1 = 3,
+		limiter = new $$.Limiter(),
+		start = +Date.now(),
+		// Document the start and end time of every thread
+		times = [],
+		cont = {
+			// The count of things in flight
+			count: 20,
+			// A function to mark star
+			up: function() {
+				++this.count;
+			},
+			// A function to mark completion
+			down: function() {
+				if (--this.count == 0) {
+					var good = true;
+					// Tally up the stuff
+					for (var i = 0; i < times.length - 1; ++i) {
+						// Count forward until we're over the time limit or reach the
+						// process limit.
+						var j = i + 1;
+						for (; j < times.length; ++j) {
+							if (times[j].end - times[i].start <= window1
+								&& j - i + 1 > limit1) {
+								// We had more than the limited number of processes inside a
+								// single window.
+								console.log("Max process violation: " + (j - i + 1)
+									+ " inside " + (times[j].end - times[i].start) + " ms");
+								good = false;
+							}
+						}
+					}
+					if (!good) {
+						console.log("*** Failed 'Limiter' test! ***");
+					} else {
+						console.log("'Limiter' passed.");
+					}
+				}
+			}
+		};
+	for (var i = 0; i < 10; ++i) {
+		(function(i) {
+			//cont.up();
+			limiter.attach(function() {
+				var myEnd = +Date.now();
+				times.push({
+					start: myEnd,
+					end: myEnd
+				});
+				//console.log(((myEnd - start) / 1000) + " - ran " + i);
+				cont.down();
+			});
+		})(i);
+	}
+	for (var i = 10; i < 20; ++i) {
+		(function(i) {
+			//cont.up();
+			limiter.attach(function(signal) {
+				var myStart = +Date.now();
+				//console.log(((myStart - start) / 1000) + " - starting " + i + " ...");
+				setTimeout(function() {
+					var myEnd = +Date.now();
+					//console.log(((myEnd - start) / 1000) + " - stopped " + i);
+					times.push({
+						start: myStart,
+						end: myEnd
+					});
+					signal();
+					cont.down();
+				}, 500);
+			});
+		})(i);
+	}
 }
 
 // // Just test that things are visible
